@@ -14,9 +14,25 @@ function formatPercent(num) {
   return parseFloat(num).toFixed(2);
 }
 
+// 格式化带符号的数字（正数显示+，负数显示-，0显示0）
+function formatWithSign(num) {
+  if (num === null || num === undefined || isNaN(num)) {
+    return '0.00';
+  }
+  var value = parseFloat(num);
+  if (value > 0) {
+    return '+' + value.toFixed(2);
+  } else if (value < 0) {
+    return value.toFixed(2); // 负数本身已经带-号
+  } else {
+    return '0.00';
+  }
+}
+
 module.exports = {
   formatNumber: formatNumber,
-  formatPercent: formatPercent
+  formatPercent: formatPercent,
+  formatWithSign: formatWithSign
 };
 </wxs>
 
@@ -89,15 +105,15 @@ module.exports = {
     <text class="result-title">结果展示：</text>
     <view class="result-row flex-between">
       <text class="result-label">溢价金额：</text>
-      <text class="result-value text-success">+{{format.formatNumber(result.premiumAmount)}} 元/克</text>
+      <text class="result-value {{result.premiumAmount >= 0 ? 'text-danger' : 'text-success'}}">{{format.formatWithSign(result.premiumAmount)}} 元/克</text>
     </view>
     <view class="result-row flex-between">
       <text class="result-label">溢价率：</text>
-      <text class="result-value {{result.premiumLevel === 'high' ? 'text-danger' : result.premiumLevel === 'medium' ? 'text-accent' : 'text-success'}}">+{{format.formatPercent(result.premiumRate)}}%</text>
+      <text class="result-value {{result.premiumLevel === 'high' ? 'text-danger' : result.premiumLevel === 'medium' ? 'text-accent' : (result.premiumRate >= 0 ? 'text-danger' : 'text-success')}}">{{format.formatWithSign(result.premiumRate)}}%</text>
     </view>
-    <view class="result-row flex-between" wx:if="{{result.totalPremium > 0}}">
+    <view class="result-row flex-between" wx:if="{{result.totalPremium != 0}}">
       <text class="result-label">总溢价：</text>
-      <text class="result-value text-success">+{{format.formatNumber(result.totalPremium)}} 元</text>
+      <text class="result-value {{result.totalPremium >= 0 ? 'text-danger' : 'text-success'}}">{{format.formatWithSign(result.totalPremium)}} 元</text>
     </view>
     <view class="result-row flex-between">
       <text class="result-label">溢价等级：</text>
