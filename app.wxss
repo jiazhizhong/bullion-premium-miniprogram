@@ -1,0 +1,201 @@
+/* app.wxss */
+/* 全局样式 */
+
+page {
+  background-color: #1A1A1C;
+  color: #F5F5F0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+/* 容器 */
+.container {
+  width: 100%;
+  min-height: 100vh;
+  padding: 0 17rpx;
+  box-sizing: border-box;
+}
+
+/* 卡片样式 */
+.card {
+  background-color: #242426;
+  border-radius: 17rpx;
+  padding: 17rpx;
+  margin-bottom: 20rpx;
+}
+
+/* 按钮样式 */
+.btn {
+  border-radius: 14rpx;
+  padding: 20rpx;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 600;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-primary {
+  background-color: #C9A962;
+  color: #1A1A1C;
+}
+
+/* 微信小程序button组件文字居中 */
+button.btn,
+button.btn-primary,
+button.btn-secondary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+button.btn::after,
+button.btn-primary::after,
+button.btn-secondary::after {
+  border: none;
+}
+
+.btn-secondary {
+  background-color: #242426;
+  color: #F5F5F0;
+  border: 1px solid #3A3A3C;
+}
+
+/* 输入框样式 */
+.input {
+  background-color: #2A2A2C;
+  border: 1px solid #3A3A3C;
+  border-radius: 14rpx;
+  padding: 0 27rpx;
+  height: 95rpx;
+  line-height: 95rpx;
+  color: #F5F5F0;
+  font-size: 15px;
+}
+
+.input::placeholder {
+  color: #6E6E70;
+}
+
+/* 文本样式 */
+.text-primary {
+  color: #F5F5F0;
+}
+
+.text-secondary {
+  color: #6E6E70;
+}
+
+.text-accent {
+  color: #C9A962;
+}
+
+.text-success {
+  color: #6E9E6E;
+}
+
+.text-error {
+    color: #ee440e;
+}
+
+.text-danger {
+  color: #E57373;
+}
+
+/* 标题样式 */
+.title-large {
+  font-size: 27px;
+  font-weight: 500;
+  color: #F5F5F0;
+}
+
+.title-medium {
+  font-size: 20px;
+  font-weight: 500;
+  color: #F5F5F0;
+}
+
+.title-small {
+  font-size: 15px;
+  font-weight: 500;
+  color: #F5F5F0;
+}
+
+/* 分割线 */
+.divider {
+  height: 1px;
+  background-color: #2A2A2C;
+  margin: 20rpx 0;
+}
+
+/* 渐变背景 */
+.gradient-gold {
+  background: linear-gradient(135deg, #C9A962 0%, #8B7845 100%);
+}
+
+.gradient-gray {
+  background: linear-gradient(135deg, #3A3A3C 0%, #2A2A2C 100%);
+}
+
+/* 圆角 */
+.rounded-sm {
+  border-radius: 10rpx;
+}
+
+.rounded-md {
+  border-radius: 14rpx;
+}
+
+.rounded-lg {
+  border-radius: 17rpx;
+}
+
+.rounded-full {
+  border-radius: 50%;
+}
+
+/* 间距 */
+.mt-sm { margin-top: 8rpx; }
+.mt-md { margin-top: 16rpx; }
+.mt-lg { margin-top: 24rpx; }
+.mb-sm { margin-bottom: 8rpx; }
+.mb-md { margin-bottom: 16rpx; }
+.mb-lg { margin-bottom: 24rpx; }
+.p-sm { padding: 8rpx; }
+.p-md { padding: 16rpx; }
+.p-lg { padding: 24rpx; }
+
+/* Flex布局 */
+.flex {
+  display: flex;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.flex-1 {
+  flex: 1;
+}
+
+/* 隐藏 */
+.hidden {
+  display: none;
+}

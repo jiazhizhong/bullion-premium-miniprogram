@@ -1,0 +1,187 @@
+<!--pages/index/index.wxml-->
+<view class="container">
+  <!-- 头部 -->
+  <view class="header">
+    <view class="header-left">
+      <text class="title">小钱记忆通</text>
+    </view>
+    <view class="notif-btn" bindtap="onNotificationTap">
+      <image class="icon" src="/images/icon-bell.png" mode="aspectFit"></image>
+    </view>
+  </view>
+
+  <!-- 实时行情 -->
+  <view class="section">
+    <view class="section-header">
+      <text class="section-title">实时行情</text>
+    </view>
+    <view class="price-cards">
+      <view class="price-card" bindtap="onGoldCardTap">
+        <text class="price-value">{{marketData.gold.price}}</text>
+        <view class="price-change">
+          <image class="change-icon" src="/images/icon-{{marketData.gold.changePercent >= 0 ? 'up' : 'down'}}.png" mode="aspectFit"></image>
+          <text class="change-text {{marketData.gold.changePercent >= 0 ? 'text-error' : 'text-success'}}">{{marketData.gold.changePercent >= 0 ? '+' : ''}}{{marketData.gold.changePercent}}%</text>
+        </view>
+      </view>
+      <view class="price-card" bindtap="onSilverCardTap">
+        <text class="price-value">{{marketData.silver.price}}</text>
+        <view class="price-change">
+          <image class="change-icon" src="/images/icon-{{marketData.silver.changePercent >= 0 ? 'up' : 'down'}}.png" mode="aspectFit"></image>
+          <text class="change-text {{marketData.silver.changePercent >= 0 ? 'text-error' : 'text-success'}}">{{marketData.silver.changePercent >= 0 ? '+' : ''}}{{marketData.silver.changePercent}}%</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 热门产品 -->
+  <view class="section">
+    <view class="section-header flex-between">
+      <text class="section-title">热门产品</text>
+      <text class="view-all" bindtap="onViewAllTap">查看全部</text>
+    </view>
+    <view class="product-list">
+      <!-- 黄金产品 -->
+      <view class="product-item">
+        <view class="product-card" bindtap="onProductTap" data-type="gold">
+          <view class="product-icon gradient-gold">
+            <image class="icon" src="/images/icon-gold.png" mode="aspectFit"></image>
+          </view>
+          <view class="product-info flex-1">
+            <!-- <text class="product-desc">T+0交易，杠杆1:100</text> -->
+          </view>
+          <view class="product-price">
+            <text class="price-text text-accent">¥{{marketData.gold.price}}</text>
+            <text class="change-text {{marketData.gold.changePercent >= 0 ? 'text-error' : 'text-success'}}">{{marketData.gold.changePercent >= 0 ? '+' : ''}}{{marketData.gold.changePercent}}%</text>
+          </view>
+          <image class="expand-icon {{expandedType === 'gold' ? 'expanded' : ''}}" 
+                 src="/images/icon-arrow-down.png" 
+                 mode="aspectFit"></image>
+        </view>
+        <!-- 黄金资产列表 -->
+        <view class="asset-list {{expandedType === 'gold' ? 'show' : ''}}">
+          <!-- 搜索栏 -->
+          <view class="asset-search-bar">
+            <view class="search-item">
+              <text class="search-label">日期</text>
+              <picker mode="date" value="{{searchFilters.gold.date}}" bindchange="onDateChange" data-type="gold">
+                <view class="picker-view">
+                  <view class="picker-text {{searchFilters.gold.date ? '' : 'placeholder'}}">
+                    {{searchFilters.gold.date || '选择日期'}}
+                  </view>
+                  <image class="picker-icon" src="/images/icon-calendar.png" mode="aspectFit"></image>
+                </view>
+              </picker>
+            </view>
+            <view class="search-item">
+              <text class="search-label">渠道</text>
+              <picker mode="selector" range="{{channels}}" value="{{searchFilters.gold.channelIndex >= 0 ? searchFilters.gold.channelIndex : 0}}" bindchange="onChannelChange" data-type="gold">
+                <view class="picker-view">
+                  <view class="picker-text {{searchFilters.gold.channelIndex >= 0 ? '' : 'placeholder'}}">
+                    {{searchFilters.gold.channelIndex >= 0 ? channels[searchFilters.gold.channelIndex] : '选择渠道'}}
+                  </view>
+                  <image class="picker-icon" src="/images/icon-arrow-down.png" mode="aspectFit"></image>
+                </view>
+              </picker>
+            </view>
+            <view class="search-clear" bindtap="onClearSearch" data-type="gold" wx:if="{{searchFilters.gold.date || searchFilters.gold.channel}}">
+              <text class="clear-text">清除</text>
+            </view>
+          </view>
+          <view class="asset-item" wx:for="{{goldAssets}}" wx:key="id">
+            <view class="asset-main">
+              <view class="asset-icon-small gradient-gold">
+                <image class="icon" src="/images/icon-gold.png" mode="aspectFit"></image>
+              </view>
+              <view class="asset-info flex-1">
+                <text class="asset-price text-accent">¥{{item.price}}/克</text>
+                <text class="asset-weight">{{item.weight}} 克</text>
+                <text class="asset-channel">{{item.channel || '其他'}}</text>
+              </view>
+              <view class="asset-value">
+                <text class="value-text">¥{{item.totalValue}}</text>
+                <text class="value-date">{{item.date}}</text>
+              </view>
+            </view>
+          </view>
+          <view class="empty-asset" wx:if="{{goldAssets.length === 0}}">
+            <text class="empty-text">
+              {{searchFilters.gold.date || searchFilters.gold.channel ? '无搜索结果' : '暂无资产'}}
+            </text>
+          </view>
+        </view>
+      </view>
+
+      <!-- 白银产品 -->
+      <view class="product-item">
+        <view class="product-card" bindtap="onProductTap" data-type="silver">
+          <view class="product-icon gradient-gray">
+            <image class="icon" src="/images/icon-silver.png" mode="aspectFit"></image>
+          </view>
+          <view class="product-info flex-1">
+            <!-- <text class="product-desc">T+0交易，杠杆1:50</text> -->
+          </view>
+          <view class="product-price">
+            <text class="price-text text-secondary">¥{{marketData.silver.price}}</text>
+            <text class="change-text {{marketData.silver.changePercent >= 0 ? 'text-error' : 'text-success'}}">{{marketData.silver.changePercent >= 0 ? '+' : ''}}{{marketData.silver.changePercent}}%</text>
+          </view>
+          <image class="expand-icon {{expandedType === 'silver' ? 'expanded' : ''}}" 
+                 src="/images/icon-arrow-down.png" 
+                 mode="aspectFit"></image>
+        </view>
+        <!-- 白银资产列表 -->
+        <view class="asset-list {{expandedType === 'silver' ? 'show' : ''}}">
+          <!-- 搜索栏 -->
+          <view class="asset-search-bar">
+            <view class="search-item">
+              <text class="search-label">日期</text>
+              <picker mode="date" value="{{searchFilters.silver.date}}" bindchange="onDateChange" data-type="silver">
+                <view class="picker-view">
+                  <view class="picker-text {{searchFilters.silver.date ? '' : 'placeholder'}}">
+                    {{searchFilters.silver.date || '选择日期'}}
+                  </view>
+                  <image class="picker-icon" src="/images/icon-calendar.png" mode="aspectFit"></image>
+                </view>
+              </picker>
+            </view>
+            <view class="search-item">
+              <text class="search-label">渠道</text>
+              <picker mode="selector" range="{{channels}}" value="{{searchFilters.silver.channelIndex >= 0 ? searchFilters.silver.channelIndex : 0}}" bindchange="onChannelChange" data-type="silver">
+                <view class="picker-view">
+                  <view class="picker-text {{searchFilters.silver.channelIndex >= 0 ? '' : 'placeholder'}}">
+                    {{searchFilters.silver.channelIndex >= 0 ? channels[searchFilters.silver.channelIndex] : '选择渠道'}}
+                  </view>
+                  <image class="picker-icon" src="/images/icon-arrow-down.png" mode="aspectFit"></image>
+                </view>
+              </picker>
+            </view>
+            <view class="search-clear" bindtap="onClearSearch" data-type="silver" wx:if="{{searchFilters.silver.date || searchFilters.silver.channel}}">
+              <text class="clear-text">清除</text>
+            </view>
+          </view>
+          <view class="asset-item" wx:for="{{silverAssets}}" wx:key="id">
+            <view class="asset-main">
+              <view class="asset-icon-small gradient-gray">
+                <image class="icon" src="/images/icon-silver.png" mode="aspectFit"></image>
+              </view>
+              <view class="asset-info flex-1">
+                <text class="asset-price text-secondary">¥{{item.price}}/克</text>
+                <text class="asset-weight">{{item.weight}} 克</text>
+                <text class="asset-channel">{{item.channel || '其他'}}</text>
+              </view>
+              <view class="asset-value">
+                <text class="value-text">¥{{item.totalValue}}</text>
+                <text class="value-date">{{item.date}}</text>
+              </view>
+            </view>
+          </view>
+          <view class="empty-asset" wx:if="{{silverAssets.length === 0}}">
+            <text class="empty-text">
+              {{searchFilters.silver.date || searchFilters.silver.channel ? '无搜索结果' : '暂无资产'}}
+            </text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+</view>

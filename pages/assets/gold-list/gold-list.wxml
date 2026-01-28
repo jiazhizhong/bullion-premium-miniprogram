@@ -1,0 +1,158 @@
+<!--pages/assets/gold-list/gold-list.wxml-->
+<wxs module="format">
+function formatDate(date, timestamp) {
+  if (!date && !timestamp) {
+    return '';
+  }
+
+  // 如果有日期字符串，提取日期部分（去掉时间部分）
+  if (date) {
+    // 处理 ISO 格式：2026-01-26T16:00:00.000Z
+    if (date.indexOf('T') > 0) {
+      return date.split('T')[0];
+    }
+    // 如果包含空格，说明有时间部分，只取日期部分
+    if (date.indexOf(' ') > 0) {
+      return date.split(' ')[0];
+    }
+    // 如果只有日期，直接返回
+    return date;
+  }
+
+  // 如果有时间戳，转换为日期
+  if (timestamp) {
+    var d = getDate(parseInt(timestamp));
+    var year = d.getFullYear();
+    var month = (d.getMonth() + 1).toString();
+    if (month.length === 1) {
+      month = '0' + month;
+    }
+    var day = d.getDate().toString();
+    if (day.length === 1) {
+      day = '0' + day;
+    }
+    return year + '-' + month + '-' + day;
+  }
+
+  return '';
+}
+
+module.exports = {
+  formatDate: formatDate
+};
+</wxs>
+
+<view class="container">
+  <!-- 返回按钮 -->
+  <view class="header">
+    <view class="back-btn" bindtap="onBack">
+      <image class="back-icon" src="/images/icon-arrow-left.png" mode="aspectFit"></image>
+    </view>
+    <text class="page-title">资产</text>
+  </view>
+
+  <!-- 搜索栏 -->
+  <view class="search-bar">
+    <view class="search-item">
+      <text class="search-label">日期</text>
+      <picker mode="date" value="{{searchDate}}" bindchange="onDateChange">
+        <view class="picker-view">
+          <view class="picker-text {{searchDate ? '' : 'placeholder'}}">
+            {{searchDate || '选择日期'}}
+          </view>
+          <image class="picker-icon" src="/images/icon-calendar.png" mode="aspectFit"></image>
+        </view>
+      </picker>
+    </view>
+    <view class="search-item">
+      <text class="search-label">渠道</text>
+      <picker mode="selector" range="{{channels}}" value="{{searchChannelIndex >= 0 ? searchChannelIndex : 0}}" bindchange="onChannelChange">
+        <view class="picker-view">
+          <view class="picker-text {{searchChannelIndex >= 0 ? '' : 'placeholder'}}">
+            {{searchChannelIndex >= 0 ? channels[searchChannelIndex] : '选择渠道'}}
+          </view>
+          <image class="picker-icon" src="/images/icon-arrow-down.png" mode="aspectFit"></image>
+        </view>
+      </picker>
+    </view>
+    <view class="search-clear" bindtap="onClearSearch" wx:if="{{searchDate || searchChannel}}">
+      <text class="clear-text">清除</text>
+    </view>
+  </view>
+
+  <view class="asset-list">
+    <view class="asset-item" wx:for="{{assets}}" wx:key="id" bindtap="onItemTap" data-item="{{item}}">
+      <view class="asset-main">
+        <view class="asset-icon gradient-gold">
+          <image class="icon" src="/images/icon-gold.png" mode="aspectFit"></image>
+        </view>
+        <view class="asset-info flex-1">
+          <text class="asset-price text-accent">¥{{item.price}}/克</text>
+          <text class="asset-weight">{{item.weight}} 克</text>
+        </view>
+        <view class="asset-value">
+          <text class="value-text">¥{{item.totalValue}}</text>
+          <text class="value-date">{{item.date}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="empty" wx:if="{{assets.length === 0}}">
+    <text class="empty-text">
+      {{searchDate || searchChannel ? '无搜索结果' : '暂无资产'}}
+    </text>
+  </view>
+
+  <!-- 资产详情弹窗 -->
+  <view class="modal-mask" wx:if="{{showDetailModal}}" bindtap="onCloseModal">
+    <view class="modal-content" catchtap="stopPropagation">
+      <!-- 关闭按钮 -->
+      <view class="modal-close" bindtap="onCloseModal">
+        <text class="close-icon">×</text>
+      </view>
+      
+      <!-- 弹窗标题 -->
+      <view class="modal-header">
+        <view class="modal-icon gradient-gold">
+          <image class="icon" src="/images/icon-gold.png" mode="aspectFit"></image>
+        </view>
+        <text class="modal-title">资产详情</text>
+      </view>
+
+      <!-- 弹窗内容 -->
+      <view class="modal-body">
+        <view class="detail-item">
+          <text class="detail-label">购买价格</text>
+          <text class="detail-value text-accent">¥{{selectedAsset.price}}/克</text>
+        </view>
+        <view class="detail-item">
+          <text class="detail-label">重量</text>
+          <text class="detail-value">{{selectedAsset.weight}} 克</text>
+        </view>
+        <view class="detail-item">
+          <text class="detail-label">总价值</text>
+          <text class="detail-value highlight">¥{{selectedAsset.totalValue}}</text>
+        </view>
+        <view class="detail-item">
+          <text class="detail-label">购买渠道</text>
+          <text class="detail-value">{{selectedAsset.channel || '其他'}}</text>
+        </view>
+        <view class="detail-item">
+          <text class="detail-label">购买日期</text>
+          <text class="detail-value">{{format.formatDate(selectedAsset.date, selectedAsset.timestamp)}}</text>
+        </view>
+        <view class="detail-item" wx:if="{{selectedAsset.remark}}">
+          <text class="detail-label">备注</text>
+          <text class="detail-value">{{selectedAsset.remark}}</text>
+        </view>
+      </view>
+
+      <!-- 操作按钮 -->
+      <view class="modal-footer">
+        <button class="modal-btn btn-edit" bindtap="onEditAsset">编辑</button>
+        <button class="modal-btn btn-delete" bindtap="onDeleteAssetConfirm">删除</button>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "溢价信息",
+  "navigationStyle": "custom",
+  "enablePullDownRefresh": true,
+  "usingComponents": {}
+}

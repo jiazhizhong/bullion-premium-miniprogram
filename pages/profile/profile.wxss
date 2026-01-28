@@ -1,0 +1,121 @@
+/* pages/profile/profile.wxss */
+.container {
+  padding: 34rpx;
+  padding-top: calc(env(safe-area-inset-top) + 102rpx);
+}
+
+.profile-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 34rpx;
+  padding: 40rpx 0;
+}
+
+.avatar {
+  width: 136rpx;
+  height: 136rpx;
+  border-radius: 68rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.avatar .icon {
+  width: 68rpx;
+  height: 68rpx;
+}
+
+.avatar-img {
+  width: 136rpx;
+  height: 136rpx;
+  border-radius: 68rpx;
+}
+
+.nickname {
+  font-size: 40rpx;
+  font-weight: 500;
+  color: #F5F5F0;
+}
+
+.login-section {
+  margin-top: 20rpx;
+}
+
+.login-btn {
+  background: linear-gradient(135deg, #C9A962 0%, #B8944F 100%);
+  color: #F5F5F0;
+  border: none;
+  border-radius: 20rpx;
+  padding: 20rpx 60rpx;
+  font-size: 28rpx;
+  font-weight: 500;
+}
+
+.login-btn::after {
+  border: none;
+}
+
+.logout-section {
+  margin-top: 20rpx;
+}
+
+.logout-btn {
+  color: #6E6E70;
+  font-size: 24rpx;
+  padding: 10rpx 20rpx;
+}
+
+.button-section {
+  display: flex;
+  flex-direction: column;
+  gap: 27rpx;
+  margin-top: 54rpx;
+}
+
+.function-btn {
+  background-color: #242426;
+  border-radius: 34rpx;
+  border: 1px solid #3A3A3C;
+  padding: 40rpx;
+  display: flex;
+  align-items: center;
+  gap: 27rpx;
+  height: 136rpx;
+}
+
+.btn-icon {
+  width: 68rpx;
+  height: 68rpx;
+  border-radius: 34rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-icon .icon {
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.btn-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+}
+
+.btn-title {
+  font-size: 34rpx;
+  font-weight: 500;
+  color: #F5F5F0;
+}
+
+.btn-desc {
+  font-size: 20rpx;
+  color: #6E6E70;
+}
+
+.arrow-icon {
+  width: 34rpx;
+  height: 34rpx;
+}

@@ -1,0 +1,68 @@
+<!--pages/assets/add-asset/add-asset.wxml-->
+<view class="container">
+  <!-- 返回按钮 -->
+  <view class="header">
+    <view class="back-btn" bindtap="onBack">
+      <image class="back-icon" src="/images/icon-arrow-left.png" mode="aspectFit"></image>
+    </view>
+    <text class="page-title">{{isEditMode ? '编辑资产' : '添加资产'}}</text>
+  </view>
+
+  <!-- 资产类型选择（编辑模式下禁用） -->
+  <view class="type-selector">
+    <view class="type-option {{assetType === 'gold' ? 'active' : ''}} {{isEditMode ? 'disabled' : ''}}" bindtap="onTypeChange" data-type="gold">
+      <view class="type-icon gradient-gold">
+        <image class="icon" src="/images/icon-gold.png" mode="aspectFit"></image>
+      </view>
+      <text>黄金</text>
+    </view>
+    <view class="type-option {{assetType === 'silver' ? 'active' : ''}} {{isEditMode ? 'disabled' : ''}}" bindtap="onTypeChange" data-type="silver">
+      <view class="type-icon gradient-gray">
+        <image class="icon" src="/images/icon-silver.png" mode="aspectFit"></image>
+      </view>
+      <text>白银</text>
+    </view>
+  </view>
+
+  <!-- 表单 -->
+  <view class="form-card">
+    <!-- 买入价格 -->
+    <view class="form-section">
+      <text class="section-label">【买入价格】</text>
+      <input class="input" type="digit" placeholder="输入买入价格" value="{{formData.price}}" bindinput="onPriceInput" />
+      <text class="input-unit">元/克</text>
+    </view>
+
+    <!-- 买入克数 -->
+    <view class="form-section">
+      <text class="section-label">【买入克数】</text>
+      <input class="input" type="digit" placeholder="输入买入克数" value="{{formData.weight}}" bindinput="onWeightInput" />
+      <text class="input-unit">克</text>
+    </view>
+
+    <!-- 渠道 -->
+    <view class="form-section">
+      <text class="section-label">【渠道】</text>
+      <picker mode="selector" range="{{channels}}" range-key="name" value="{{channelIndex}}" bindchange="onChannelChange">
+        <view class="picker-input">
+          <text class="{{formData.channel ? 'text-primary' : 'text-secondary'}}">{{formData.channel || '选择渠道'}}</text>
+          <image class="arrow-icon" src="/images/icon-arrow-down.png" mode="aspectFit"></image>
+        </view>
+      </picker>
+    </view>
+
+    <!-- 买入时间 -->
+    <view class="form-section">
+      <text class="section-label">【买入时间】</text>
+      <picker mode="date" value="{{formData.date}}" bindchange="onDateChange">
+        <view class="picker-input">
+          <text class="{{formData.date ? 'text-primary' : 'text-secondary'}}">{{formData.date || '选择日期'}}</text>
+          <image class="calendar-icon" src="/images/icon-calendar.png" mode="aspectFit"></image>
+        </view>
+      </picker>
+    </view>
+  </view>
+
+  <!-- 提交按钮 -->
+  <button class="submit-btn btn-primary" bindtap="onSubmit">{{isEditMode ? '确认更新' : '确认添加'}}</button>
+</view>

@@ -1,0 +1,56 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/market/market",
+    "pages/assets/assets",
+    "pages/profile/profile",
+    "pages/convert/convert",
+    "pages/premium/premium",
+    "pages/assets/gold-list/gold-list",
+    "pages/assets/silver-list/silver-list",
+    "pages/assets/add-asset/add-asset"
+  ],
+  "window": {
+    "navigationBarTitleText": "金银投资",
+    "navigationBarBackgroundColor": "#1A1A1C",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#1A1A1C",
+    "backgroundTextStyle": "light",
+    "enablePullDownRefresh": false
+  },
+  "tabBar": {
+    "color": "#6E6E70",
+    "selectedColor": "#C9A962",
+    "backgroundColor": "#242426",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "images/tab-home.png",
+        "selectedIconPath": "images/tab-home-active.png"
+      },
+      {
+        "pagePath": "pages/market/market",
+        "text": "行情",
+        "iconPath": "images/tab-market.png",
+        "selectedIconPath": "images/tab-market-active.png"
+      },
+      {
+        "pagePath": "pages/assets/assets",
+        "text": "资产",
+        "iconPath": "images/tab-assets.png",
+        "selectedIconPath": "images/tab-assets-active.png"
+      },
+      {
+        "pagePath": "pages/profile/profile",
+        "text": "我的",
+        "iconPath": "images/tab-profile.png",
+        "selectedIconPath": "images/tab-profile-active.png"
+      }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents"
+}

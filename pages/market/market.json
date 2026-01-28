@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "行情",
+  "navigationStyle": "custom",
+  "enablePullDownRefresh": true,
+  "usingComponents": {}
+}

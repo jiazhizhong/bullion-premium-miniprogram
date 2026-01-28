@@ -1,0 +1,107 @@
+<!--pages/premium/premium.wxml-->
+<wxs module="format">
+function formatNumber(num) {
+  if (num === null || num === undefined || isNaN(num)) {
+    return '0.00';
+  }
+  return parseFloat(num).toFixed(2);
+}
+
+function formatPercent(num) {
+  if (num === null || num === undefined || isNaN(num)) {
+    return '0.00';
+  }
+  return parseFloat(num).toFixed(2);
+}
+
+module.exports = {
+  formatNumber: formatNumber,
+  formatPercent: formatPercent
+};
+</wxs>
+
+<view class="container">
+  <!-- 返回按钮 -->
+  <view class="header">
+    <view class="back-btn" bindtap="onBack">
+      <image class="back-icon" src="/images/icon-arrow-left.png" mode="aspectFit"></image>
+    </view>
+    <text class="page-title">溢价信息</text>
+  </view>
+
+  <view class="premium-card">
+    <!-- 金属类型选择 -->
+    <view class="form-section">
+      <text class="section-label">【金属类型】</text>
+      <view class="type-group">
+        <view class="type-option {{metalType === 'gold' ? 'active' : ''}}" bindtap="onTypeChange" data-type="gold">
+          <view class="radio {{metalType === 'gold' ? 'checked' : ''}}"></view>
+          <view class="type-icon-wrapper gradient-gold">
+            <image class="type-icon" src="/images/icon-gold.png" mode="aspectFit"></image>
+          </view>
+        </view>
+        <view class="type-option {{metalType === 'silver' ? 'active' : ''}}" bindtap="onTypeChange" data-type="silver">
+          <view class="radio {{metalType === 'silver' ? 'checked' : ''}}"></view>
+          <view class="type-icon-wrapper gradient-gray">
+            <image class="type-icon" src="/images/icon-silver.png" mode="aspectFit"></image>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 基准价格 -->
+    <view class="form-section">
+      <text class="section-label">【基准价格】</text>
+      <input class="input" type="digit" placeholder="输入基准价格" value="{{basePrice}}" bindinput="onBasePriceInput" />
+      <text class="input-unit">元/克</text>
+      <view class="mode-switch">
+        <view class="mode-item {{priceMode === 'auto' ? 'active' : ''}}" bindtap="onModeChange" data-mode="auto">
+          <image class="mode-icon" src="/images/icon-refresh.png" mode="aspectFit"></image>
+          <text>自动</text>
+        </view>
+        <view class="mode-item {{priceMode === 'manual' ? 'active' : ''}}" bindtap="onModeChange" data-mode="manual">
+          <image class="mode-icon" src="/images/icon-edit.png" mode="aspectFit"></image>
+          <text>手动</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 买入价格 -->
+    <view class="form-section">
+      <text class="section-label">【买入价格】</text>
+      <input class="input" type="digit" placeholder="输入买入价格" value="{{buyPrice}}" bindinput="onBuyPriceInput" />
+      <text class="input-unit">元/克</text>
+    </view>
+
+    <!-- 买入克重 -->
+    <view class="form-section">
+      <text class="section-label">【买入克重】</text>
+      <input class="input" type="digit" placeholder="输入买入克重" value="{{buyWeight}}" bindinput="onBuyWeightInput" />
+      <text class="input-unit">克（可选）</text>
+    </view>
+
+    <!-- 计算按钮 -->
+    <button class="calc-btn btn-primary" bindtap="onCalculate">计算溢价</button>
+  </view>
+
+  <!-- 结果展示 -->
+  <view class="result-card" wx:if="{{showResult}}">
+    <text class="result-title">结果展示：</text>
+    <view class="result-row flex-between">
+      <text class="result-label">溢价金额：</text>
+      <text class="result-value text-success">+{{format.formatNumber(result.premiumAmount)}} 元/克</text>
+    </view>
+    <view class="result-row flex-between">
+      <text class="result-label">溢价率：</text>
+      <text class="result-value {{result.premiumLevel === 'high' ? 'text-danger' : result.premiumLevel === 'medium' ? 'text-accent' : 'text-success'}}">+{{format.formatPercent(result.premiumRate)}}%</text>
+    </view>
+    <view class="result-row flex-between" wx:if="{{result.totalPremium > 0}}">
+      <text class="result-label">总溢价：</text>
+      <text class="result-value text-success">+{{format.formatNumber(result.totalPremium)}} 元</text>
+    </view>
+    <view class="result-row flex-between">
+      <text class="result-label">溢价等级：</text>
+      <text class="result-value {{result.premiumLevel === 'high' ? 'text-danger' : result.premiumLevel === 'medium' ? 'text-accent' : 'text-success'}}">{{result.premiumLevelText || '正常溢价'}}</text>
+    </view>
+  </view>
+</view>

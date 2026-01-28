@@ -1,0 +1,23 @@
+/**
+ * 溢价计算页面 WXS 模块
+ * 用于格式化数字显示
+ */
+
+function formatNumber(num) {
+  if (num === null || num === undefined || isNaN(num)) {
+    return '0.00';
+  }
+  return parseFloat(num).toFixed(2);
+}
+
+function formatPercent(num) {
+  if (num === null || num === undefined || isNaN(num)) {
+    return '0.00';
+  }
+  return parseFloat(num).toFixed(2);
+}
+
+module.exports = {
+  formatNumber: formatNumber,
+  formatPercent: formatPercent
+};

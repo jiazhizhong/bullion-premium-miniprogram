@@ -1,0 +1,81 @@
+/* pages/assets/assets.wxss */
+.container {
+  padding: 34rpx;
+  padding-top: calc(env(safe-area-inset-top) + 102rpx);
+}
+
+.assets-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 40rpx;
+  margin-bottom: 40rpx;
+}
+
+.asset-card {
+  background-color: #242426;
+  border-radius: 34rpx;
+  padding: 40rpx;
+}
+
+.asset-header {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+  margin-bottom: 27rpx;
+}
+
+.asset-icon {
+  width: 68rpx;
+  height: 68rpx;
+  border-radius: 34rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.asset-icon .icon {
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.asset-title {
+  font-size: 34rpx;
+  font-weight: 500;
+  color: #F5F5F0;
+}
+
+
+.asset-info {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.asset-row {
+  display: flex;
+  align-items: center;
+}
+
+.asset-label {
+  font-size: 23rpx;
+  color: #6E6E70;
+}
+
+.asset-value {
+  font-size: 23rpx;
+  font-weight: 500;
+  color: #F5F5F0;
+}
+
+.add-asset-btn {
+  background-color: #C9A962;
+  border-radius: 27rpx;
+  padding: 40rpx;
+  text-align: center;
+}
+
+.add-text {
+  font-size: 27rpx;
+  font-weight: 600;
+  color: #1A1A1C;
+}

@@ -1,0 +1,48 @@
+<!--pages/convert/convert.wxml-->
+<view class="container">
+  <!-- 返回按钮 -->
+  <view class="header">
+    <view class="back-btn" bindtap="onBack">
+      <image class="back-icon" src="/images/icon-arrow-left.png" mode="aspectFit"></image>
+    </view>
+    <text class="page-title">价格换算</text>
+  </view>
+
+  <view class="convert-card">
+    <!-- 黄金价格换算 -->
+    <view class="convert-section">
+      <view class="section-header">
+        <view class="section-icon gradient-gold">
+          <image class="icon" src="/images/icon-gold.png" mode="aspectFit"></image>
+        </view>
+        <text class="section-title">黄金价格换算</text>
+      </view>
+      <view class="input-group">
+        <text class="input-label">国际金价 (美元/盎司)</text>
+        <input class="input" type="digit" placeholder="输入国际金价" value="{{goldInput}}" bindinput="onGoldInput" />
+      </view>
+      <view class="result-group">
+        <text class="result-label">人民币价格 (元/克)</text>
+        <text class="result-value text-accent">{{goldResult}}</text>
+      </view>
+    </view>
+
+    <!-- 白银价格换算 -->
+    <view class="convert-section">
+      <view class="section-header">
+        <view class="section-icon gradient-gray">
+          <image class="icon" src="/images/icon-silver.png" mode="aspectFit"></image>
+        </view>
+        <text class="section-title">白银价格换算</text>
+      </view>
+      <view class="input-group">
+        <text class="input-label">国际银价 (美元/盎司)</text>
+        <input class="input" type="digit" placeholder="输入国际银价" value="{{silverInput}}" bindinput="onSilverInput" />
+      </view>
+      <view class="result-group">
+        <text class="result-label">人民币价格 (元/克)</text>
+        <text class="result-value text-accent">{{silverResult}}</text>
+      </view>
+    </view>
+  </view>
+</view>

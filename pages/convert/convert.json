@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "价格换算",
+  "navigationStyle": "custom",
+  "enablePullDownRefresh": true,
+  "usingComponents": {}
+}

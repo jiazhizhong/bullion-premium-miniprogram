@@ -1,0 +1,25 @@
+/**
+ * 格式化数字，保留2位小数
+ */
+function formatNumber(num) {
+  if (num === null || num === undefined || isNaN(num)) {
+    return '0.00';
+  }
+  return parseFloat(num).toFixed(2);
+}
+
+/**
+ * 格式化盈亏，带正负号
+ */
+function formatProfit(profit) {
+  if (profit === null || profit === undefined || isNaN(profit)) {
+    return '0.00';
+  }
+  var num = parseFloat(profit);
+  return (num >= 0 ? '+' : '') + num.toFixed(2);
+}
+
+module.exports = {
+  formatNumber: formatNumber,
+  formatProfit: formatProfit
+};

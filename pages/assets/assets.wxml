@@ -1,0 +1,72 @@
+<!--pages/assets/assets.wxml-->
+<wxs module="utils" src="./assets.wxs"></wxs>
+<view class="container">
+  <view class="assets-cards">
+    <!-- 黄金资产 -->
+    <view class="asset-card" bindtap="onGoldAssetsTap">
+      <view class="asset-header">
+        <view class="asset-icon gradient-gold">
+          <image class="icon" src="/images/icon-gold.png" mode="aspectFit"></image>
+        </view>
+        <text class="asset-title">资产</text>
+      </view>
+      <view class="asset-info">
+        <view class="asset-row flex-between">
+          <text class="asset-label">持仓数量</text>
+          <text class="asset-value">{{utils.formatNumber(goldStats.totalWeight)}} 克</text>
+        </view>
+        <view class="asset-row flex-between">
+          <text class="asset-label">持仓价值</text>
+          <text class="asset-value text-accent">¥{{utils.formatNumber(goldStats.totalValue)}}</text>
+        </view>
+        <view class="asset-row flex-between">
+          <text class="asset-label">持仓均价</text>
+          <text class="asset-value">¥{{utils.formatNumber(goldStats.avgPrice)}}/克</text>
+        </view>
+        <view class="divider"></view>
+        <view class="asset-row flex-between">
+          <text class="asset-label">浮动盈亏</text>
+          <text class="asset-value {{(goldStats.profit || 0) >= 0 ? 'text-success' : 'text-danger'}}">
+            ¥{{utils.formatProfit(goldStats.profit)}}
+          </text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 白银资产 -->
+    <view class="asset-card" bindtap="onSilverAssetsTap">
+      <view class="asset-header">
+        <view class="asset-icon gradient-gray">
+          <image class="icon" src="/images/icon-silver.png" mode="aspectFit"></image>
+        </view>
+        <text class="asset-title">资产</text>
+      </view>
+      <view class="asset-info">
+        <view class="asset-row flex-between">
+          <text class="asset-label">持仓数量</text>
+          <text class="asset-value">{{utils.formatNumber(silverStats.totalWeight)}} 克</text>
+        </view>
+        <view class="asset-row flex-between">
+          <text class="asset-label">持仓价值</text>
+          <text class="asset-value text-secondary">¥{{utils.formatNumber(silverStats.totalValue)}}</text>
+        </view>
+        <view class="asset-row flex-between">
+          <text class="asset-label">持仓均价</text>
+          <text class="asset-value">¥{{utils.formatNumber(silverStats.avgPrice)}}/克</text>
+        </view>
+        <view class="divider"></view>
+        <view class="asset-row flex-between">
+          <text class="asset-label">浮动盈亏</text>
+          <text class="asset-value {{(silverStats.profit || 0) >= 0 ? 'text-success' : 'text-danger'}}">
+            ¥{{utils.formatProfit(silverStats.profit)}}
+          </text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 添加资产按钮 -->
+  <view class="add-asset-btn" bindtap="onAddAssetTap">
+    <text class="add-text">+ 添加资产</text>
+  </view>
+</view>

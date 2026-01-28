@@ -1,0 +1,46 @@
+/**
+ * 格式化日期（只显示年月日）
+ * @param {String} date - 日期字符串（格式：YYYY-MM-DD 或 YYYY-MM-DD HH:mm:ss 或 ISO格式）
+ * @param {Number} timestamp - 时间戳（可选）
+ * @returns {String} - 格式化后的日期字符串（格式：YYYY-MM-DD）
+ */
+function formatDate(date, timestamp) {
+  if (!date && !timestamp) {
+    return '';
+  }
+
+  // 如果有日期字符串，提取日期部分（去掉时间部分）
+  if (date) {
+    // 处理 ISO 格式：2026-01-26T16:00:00.000Z
+    if (date.indexOf('T') > 0) {
+      return date.split('T')[0];
+    }
+    // 如果包含空格，说明有时间部分，只取日期部分
+    if (date.indexOf(' ') > 0) {
+      return date.split(' ')[0];
+    }
+    // 如果只有日期，直接返回
+    return date;
+  }
+
+  // 如果有时间戳，转换为日期
+  if (timestamp) {
+    var d = getDate(parseInt(timestamp));
+    var year = d.getFullYear();
+    var month = (d.getMonth() + 1).toString();
+    if (month.length === 1) {
+      month = '0' + month;
+    }
+    var day = d.getDate().toString();
+    if (day.length === 1) {
+      day = '0' + day;
+    }
+    return year + '-' + month + '-' + day;
+  }
+
+  return '';
+}
+
+module.exports = {
+  formatDate: formatDate
+};
